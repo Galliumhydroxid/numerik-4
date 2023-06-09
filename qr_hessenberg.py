@@ -1,11 +1,11 @@
-import datetime as time
+import time
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 STEPS = 1
 START = 1
-END = 50
+END = 500
 
 # plot
 
@@ -24,10 +24,10 @@ def timing_decorator(func):
     execution_times = []
 
     def wrapper(*args, **kwargs):
-        start_time = time.datetime.now()
+        start_time = time.time()
         result = func(*args, **kwargs)
-        end_time = time.datetime.now()
-        execution_time = (end_time - start_time).total_seconds() * 1000
+        end_time = time.time()
+        execution_time = end_time - start_time
         execution_times.append(execution_time)
         return result
 
