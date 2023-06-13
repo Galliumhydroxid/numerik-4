@@ -1,11 +1,12 @@
+import datetime
 import time
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-STEPS = 1
-START = 1
-END = 500
+STEPS = 50
+START = 100
+END = 5000
 
 # plot
 
@@ -16,6 +17,9 @@ def export_plot():
     plt.plot(t, qr.execution_times, label="QR-Decomposition")
     plt.plot(t, matrix_prod.execution_times, label="Matrix Product")
     plt.legend()
+    plt.xlabel("N")
+    plt.ylabel("time [ms]")
+    plt.title(f"Peter Albrecht (2411389), Fabian Lübbe (2421736)\nTime: {datetime.datetime.now()}")
     plt.show()
 
 # calculations
@@ -27,7 +31,7 @@ def timing_decorator(func):
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
-        execution_time = end_time - start_time
+        execution_time = (end_time - start_time)*1000
         execution_times.append(execution_time)
         return result
 
