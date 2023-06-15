@@ -74,6 +74,8 @@ if __name__ == "__main__":
         compress(i)
     t = np.arange(1, end+1, 1)
     plt.plot(t, COMPRESSION_ERRORS)
+    plt.xlabel("N")
+    plt.ylabel("Error")
     #plt.x_label("Matrix size")
     set_title()
 
