@@ -6,7 +6,7 @@ import numpy as np
 
 STEPS = 50
 START = 100
-END = 5000
+END = 10000
 
 # plot
 
@@ -20,6 +20,7 @@ def export_plot():
     plt.xlabel("N")
     plt.ylabel("time [ms]")
     plt.title(f"Peter Albrecht (2411389), Fabian Lübbe (2421736)\nTime: {datetime.datetime.now()}")
+    plt.savefig("hessenberg.png")
     plt.show()
 
 # calculations
@@ -57,7 +58,7 @@ def calculate_times():
         new_percent = (((i - START)/STEPS)/((END-START)/STEPS))*100
         if new_percent >= (percent + 1):
             percent = new_percent
-            print(f"{round(new_percent)}%")
+            print(f"{round(new_percent)}% - {i}/{END}")
     export_plot()
 
 @timing_decorator

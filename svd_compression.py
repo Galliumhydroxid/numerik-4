@@ -23,8 +23,12 @@ def frobenius(A):
         for j in range(A.shape[1]):
             sum = sum + pow(A[i, j], 2)
         norm = norm + sum
-    return norm
+    return np.sqrt(norm)
 
+
+def set_title():
+    plt.suptitle(f"Peter Albrecht (2411389), Fabian Lübbe (2421736)\n"
+                 f"Time: {datetime.datetime.now()}")
 
 def compress(k):
     image = misc.ascent()
@@ -41,7 +45,7 @@ def compress(k):
     COMPRESSION_RATIOS.append(ratio)
 
     # compression error
-    COMPRESSION_ERRORS.append(frobenius(image - output))
+    COMPRESSION_ERRORS.append(frobenius(image - output)/frobenius(image))
     return output
 
 K_VALUES = [5, 20, 75]
@@ -59,6 +63,18 @@ if __name__ == "__main__":
                              f"Compression = {round(COMPRESSION_RATIOS[i], 2)},\n"
                              f"Error = {round(COMPRESSION_ERRORS[i], 2)}",
                              fontsize=10)
-    plt.suptitle(f"Peter Albrecht (2411389), Fabian Lübbe (2421736)\n"
-                 f"Time: {datetime.datetime.now()}")
+    set_title()
+    plt.savefig('images.png')
     plt.show()
+    # plot of errors
+    COMPRESSION_ERRORS = []
+    end = 512
+    for i in range(1, end+1):
+        print(f"{i}/{end} - {round(100*(i/(end)))}%")
+        compress(i)
+    t = np.arange(1, end+1, 1)
+    plt.plot(t, COMPRESSION_ERRORS)
+    #plt.x_label("Matrix size")
+    set_title()
+
+    plt.savefig('error.png')
